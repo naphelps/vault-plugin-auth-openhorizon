@@ -8,7 +8,7 @@ VAULT_VERSION ?= 1.14.8
 VAULT_GPGKEY ?= C874011F0AB405110D02105534365D9472D7468F
 VAULT_PLUGIN_HASH := ""
 
-EXECUTABLE := hznvaultauth
+EXECUTABLE := vault-plugin-auth-openhorizon
 DOCKER_INAME ?= openhorizon/$(arch)_vault
 VERSION ?= 1.1.6
 DEV_VERSION ?=testing
@@ -19,7 +19,9 @@ DOCKER_DEV_OPTS ?= --rm --no-cache --build-arg ARCH=$(arch) --build-arg VAULT_VE
 # license file name
 export LICENSE_FILE = LICENSE.txt
 
-COMPILE_ARGS ?= CGO_ENABLED=0 GOARCH=amd64 GOOS=linux
+GOOS ?= linux
+GOARCH ?= amd64
+COMPILE_ARGS ?= CGO_ENABLED=$(CGO_ENABLED) GOARCH=$(GOARCH) GOOS=$(GOOS)
 
 ifndef verbose
 .SILENT:
@@ -34,6 +36,7 @@ clean:
 	-@docker rmi $(DOCKER_INAME):$(VERSION) 2> /dev/null || :
 	-@docker rmi $(DOCKER_INAME):testing 2> /dev/null || :
 
+.PHONY: format
 format:
 	@echo "Formatting all Golang source code with gofmt"
 	find . -name '*.go' -exec gofmt -l -w {} \;
@@ -66,5 +69,9 @@ test:
 	@echo "Executing unit tests"
 	-@$(COMPILE_ARGS) go test -cover -tags=unit
 
-
-.PHONY: format
+.PHONY: dev-goreleaser
+#dev-goreleaser: export GPG_KEY_FILE := /dev/null
+dev-goreleaser: export GITHUB_REPOSITORY_OWNER = none
+dev-goreleaser: export RELEASE_BUILD_GOOS = linux
+dev-goreleaser:
+	goreleaser release --clean --timeout=60m --verbose --parallelism 2 --snapshot --skip sbom,sign
