@@ -112,7 +112,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/attest-build-provenance@v2
         with:
-          subject-checksums: ./dist/checksums.txt
+          subject-checksums: ./dist/vault-plugin-auth-openhorizon_${{ github.ref_name }}_${{ matrix.release_os }}-checksums.txt
 
       #- name: Remove GPG Signing Key File
       #  if: always()
