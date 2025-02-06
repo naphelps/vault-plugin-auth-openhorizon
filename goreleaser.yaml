@@ -10,6 +10,10 @@ project_name: vault-plugin-auth-openhorizon
 
 version: 2
 
+env:
+  - GITHUB_RELEASE_PRERELEASE={{ if index .Env "GITHUB_RELEASE_PRERELEASE"}}{{ .Env.GITHUB_RELEASE_PRERELEASE }}{{ else }}true{{ end }}
+  - GITHUB_RELEASE_MAKE_LATEST={{ if index .Env "GITHUB_RELEASE_MAKE_LATEST"}}{{ .Env.GITHUB_RELEASE_MAKE_LATEST }}{{ else }}false{{ end }}
+
 before:
   hooks:
     # You may remove this if you don't use go modules.
