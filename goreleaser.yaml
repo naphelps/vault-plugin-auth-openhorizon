@@ -234,8 +234,8 @@ release:
     owner: '{{ .Env.GITHUB_REPOSITORY_OWNER }}'
     name: vault-plugin-auth-openhorizon
 
-  prerelease: '{{ .Env.GITHUB_RELEASE_PRERELEASE }}'
-  make_latest: {{ if index .Env "GITHUB_RELEASE_MAKE_LATEST"}}{{ .Env.GITHUB_RELEASE_MAKE_LATEST }}{{ else }}false{{ end }}
+  prerelease: auto
+  make_latest: '{{ if index .Env "GITHUB_RELEASE_MAKE_LATEST"}}{{ .Env.GITHUB_RELEASE_MAKE_LATEST }}{{ else }}false{{ end }}'
   disable: false
 
   # We overwrite the following variables to support multi-stage execution of
