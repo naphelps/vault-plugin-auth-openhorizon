@@ -113,7 +113,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           version=$(echo ${{ github.ref_name }} | cut -dv -f2)
-          echo "::set-output name=version::$version"
+          echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: "Attestations"
         if: startsWith(github.ref, 'refs/tags/')

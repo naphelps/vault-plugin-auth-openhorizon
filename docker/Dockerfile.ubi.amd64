@@ -100,11 +100,11 @@ RUN chmod +x /usr/local/bin/entrypoint.sh && \
 #
 ENTRYPOINT ["entrypoint.sh"]
 
-COPY bin/hznvaultauth /vault/plugins/hznvaultauth
+COPY bin/vault-plugin-auth-openhorizon /vault/plugins/vault-plugin-auth-openhorizon
 COPY config/config.hcl /vault/config/config.hcl
 COPY policy/agbot.acl.policy.hcl /openhorizon/policy/agbot.acl.policy.hcl
 
-RUN chmod +x /vault/plugins/hznvaultauth
+RUN chmod +x /vault/plugins/vault-plugin-auth-openhorizon
 
 USER vault
 
