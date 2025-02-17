@@ -29,7 +29,7 @@ before:
 builds:
   - id: builds-darwin
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - darwin
     goarch:
@@ -43,7 +43,7 @@ builds:
 
   - id: builds-freebsd
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - freebsd
     goarch:
@@ -58,7 +58,7 @@ builds:
 
   - id: builds-illumos
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - illumos
     goarch:
@@ -69,7 +69,7 @@ builds:
 
   - id: builds-linux
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - linux
     goarch:
@@ -90,7 +90,7 @@ builds:
 
   - id: builds-netbsd
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - netbsd
     goarch:
@@ -105,7 +105,7 @@ builds:
 
   - id: builds-openbsd
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - openbsd
     goarch:
@@ -123,7 +123,7 @@ builds:
 
   - id: builds-solaris
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - solaris
     goarch:
@@ -134,7 +134,7 @@ builds:
 
   - id: builds-windows
     env:
-      - CGO_ENABLED=1
+      - CGO_ENABLED=0
     goos:
       - windows
     goarch:

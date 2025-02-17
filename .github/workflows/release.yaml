@@ -56,11 +56,6 @@ jobs:
 
       - name: go-check
         run: go version
-
-      - name: Setup C Compiler
-        uses: rlalik/setup-cpp-compiler@master
-        with:
-          compiler: gcc
       
       # Supports syft/sbom generation
       - uses: anchore/sbom-action/download-syft@v0
