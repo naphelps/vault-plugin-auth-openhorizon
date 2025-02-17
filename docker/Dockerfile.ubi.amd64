@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi9-minimal:latest
 
-LABEL vendor="IBM"
+LABEL vendor="Open Horizon"
 LABEL summary="The secrets vault."
 LABEL description="The vault manages secrets used by applications deployed to edge nodes."
 
