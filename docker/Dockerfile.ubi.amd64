@@ -9,7 +9,7 @@ RUN mkdir -p /licenses
 COPY LICENSE.txt /licenses
 
 # This is the release of Vault to pull in and the key to verify the download.
-ARG VAULT_VERSION
+ARG VAULT_VERSION=1.14.8 #[CRITICAL] DO NOT CHANGE!
 ARG VAULT_GPGKEY
 ARG ARCH
 ARG VAULT_PLUGIN_HASH

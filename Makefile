@@ -4,17 +4,17 @@ SHELL := /bin/bash
 arch_tag ?= $(shell ./tools/arch-tag)
 arch ?= $(arch_tag)
 
-VAULT_VERSION ?= 1.14.8
+VAULT_VERSION := 1.14.8 #[CRITICAL] DO NOT CHANGE!
 VAULT_GPGKEY ?= C874011F0AB405110D02105534365D9472D7468F
 VAULT_PLUGIN_HASH := ""
 
 EXECUTABLE := vault-plugin-auth-openhorizon
 DOCKER_INAME ?= openhorizon/$(arch)_vault
-VERSION ?= 1.2.0-test
+VERSION ?= 1.2.0
 DEV_VERSION ?=testing
 DOCKER_IMAGE_LABELS ?= --label "name=$(arch)_vault" --label "version=$(VERSION)" --label "vault_version=$(VAULT_VERSION)" --label "release=$(shell git rev-parse --short HEAD)"
 
-DOCKER_DEV_OPTS ?= --rm --no-cache --build-arg ARCH=$(arch) --build-arg VAULT_VERSION=$(VAULT_VERSION) --build-arg VAULT_GPGKEY=$(VAULT_GPGKEY) --build-arg VAULT_PLUGIN_HASH=$(VAULT_PLUGIN_HASH) 
+DOCKER_DEV_OPTS ?= --rm --no-cache --build-arg ARCH=$(arch) --build-arg VAULT_GPGKEY=$(VAULT_GPGKEY) --build-arg VAULT_PLUGIN_HASH=$(VAULT_PLUGIN_HASH)
 
 # license file name
 export LICENSE_FILE = LICENSE.txt
