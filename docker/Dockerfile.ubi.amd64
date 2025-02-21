@@ -18,9 +18,9 @@ ARG VAULT_PLUGIN_HASH
 
 # Set up certificates, our base tools, and Vault.
 RUN set -eux; \
-    microdnf update -y; \
-    microdnf install -y ca-certificates shadow-utils gnupg openssl libcap wget tzdata unzip gzip tar && \
-    microdnf upgrade -y --nodocs --setopt=install_weak_deps=0 --disableplugin=subscription-manager krb5-libs && \
+    microdnf update -y --nodocs --refresh 1>/dev/null 2>&1 && \
+    microdnf install -y --nodocs ca-certificates shadow-utils gnupg openssl libcap wget tzdata unzip gzip tar 1>/dev/null 2>&1 && \
+    microdnf upgrade -y --nodocs --setopt=install_weak_deps=0 --disableplugin=subscription-manager krb5-libs 1>/dev/null 2>&1 && \
     found=''; \
     for server in \
         hkp://p80.pool.sks-keyservers.net:80 \
@@ -45,7 +45,7 @@ RUN set -eux; \
     rm -rf /tmp/build && \
     gpgconf --kill dirmngr && \
     gpgconf --kill gpg-agent  && \
-    rm -rf /root/.gnupg  && \
+    rm -rf /root/.gnupg && \
     microdnf clean all
 
 # /vault/logs is made available to use as a location to store audit logs
@@ -87,9 +87,9 @@ RUN curl -4LO https://storage.googleapis.com/kubernetes-release/release/`curl -s
     chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin
 
-COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY scripts/auto-unseal.sh /usr/local/bin/auto-unseal.sh
-COPY scripts/renewToken.sh /usr/local/bin/renewToken.sh
+COPY docker/scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/scripts/auto-unseal.sh /usr/local/bin/auto-unseal.sh
+COPY docker/scripts/renewToken.sh /usr/local/bin/renewToken.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh && \
     chmod +x /usr/local/bin/auto-unseal.sh && \
@@ -101,8 +101,8 @@ RUN chmod +x /usr/local/bin/entrypoint.sh && \
 ENTRYPOINT ["entrypoint.sh"]
 
 COPY bin/vault-plugin-auth-openhorizon /vault/plugins/vault-plugin-auth-openhorizon
-COPY config/config.hcl /vault/config/config.hcl
-COPY policy/agbot.acl.policy.hcl /openhorizon/policy/agbot.acl.policy.hcl
+COPY docker/config/config.hcl /vault/config/config.hcl
+COPY docker/policy/agbot.acl.policy.hcl /openhorizon/policy/agbot.acl.policy.hcl
 
 RUN chmod +x /vault/plugins/vault-plugin-auth-openhorizon
 
